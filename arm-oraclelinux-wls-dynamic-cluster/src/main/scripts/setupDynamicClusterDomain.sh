@@ -105,6 +105,17 @@ function addOracleGroupAndUser()
     sudo useradd -d ${user_home_dir} -g $groupname $username
 }
 
+function updateNetworkRules()
+{
+echo "Update network rules with required ports"
+sudo firewall-cmd --zone=public --add-port=$wlsAdminPort/tcp
+sudo firewall-cmd --zone=public --add-port=$wlsSSLAdminPort/tcp
+sudo firewall-cmd --zone=public --add-port=$wlsManagedPort/tcp
+sudo firewall-cmd --zone=public --add-port=$nmPort/tcp
+sudo firewall-cmd --runtime-to-permanent
+sudo systemctl restart firewalld
+}
+
 function validateInput()
 {
 
@@ -874,6 +885,8 @@ addOracleGroupAndUser
 setupInstallPath
 
 cleanup
+
+updateNetworkRules
 
 installUtilities
 
