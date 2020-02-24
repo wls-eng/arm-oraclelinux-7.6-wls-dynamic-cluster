@@ -110,7 +110,9 @@ function updateNetworkRules()
 echo "Update network rules with required ports"
 sudo firewall-cmd --zone=public --add-port=$wlsAdminPort/tcp
 sudo firewall-cmd --zone=public --add-port=$wlsSSLAdminPort/tcp
-sudo firewall-cmd --zone=public --add-port=$wlsManagedPort/tcp
+rangePortMin=$wlsManagedPort
+rangePortMax=`expr $wlsManagedPort + $maxDynamicClusterSize +1 ` 
+sudo firewall-cmd --zone=public --add-port=$rangePortMin-$rangePortMax/tcp
 sudo firewall-cmd --zone=public --add-port=$nmPort/tcp
 sudo firewall-cmd --runtime-to-permanent
 sudo systemctl restart firewalld
