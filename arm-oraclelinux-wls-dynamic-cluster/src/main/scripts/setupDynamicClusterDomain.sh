@@ -113,7 +113,7 @@ sudo firewall-cmd --zone=public --add-port=$wlsAdminPort/tcp
 echo "Adding network rule with $wlsSSLAdminPort/tcp"
 sudo firewall-cmd --zone=public --add-port=$wlsSSLAdminPort/tcp
 export rangePortMin=$wlsManagedPort
-export rangePortMax=`expr $wlsManagedPort + $maxDynamicClusterSize +1 ` 
+export rangePortMax=`expr $wlsManagedPort + $maxDynamicClusterSize + 1 `
 echo "Adding network rule with $rangePortMin-$rangePortMax/tcp"
 sudo firewall-cmd --zone=public --add-port=$rangePortMin-$rangePortMax/tcp
 echo "Adding network rule with $nmPort/tcp"
